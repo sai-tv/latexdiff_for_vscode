@@ -1,0 +1,120 @@
+{
+  "name": "latexdiff-vscode",
+  "publisher": "sai-tv",
+  "displayName": "Latexdiff",
+  "description": "A frictionless VSCode extension for generating and compiling latexdiff documents between different Git versions",
+  "version": "0.0.1",
+  "preview": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "icon": "media/icon.png",
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "latex",
+    "latexdiff",
+    "git",
+    "diff",
+    "pdf"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "capabilities": {
+    "virtualWorkspaces": {
+      "supported": false
+    },
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Latexdiff runs external diff and LaTeX compilation tools and is available only in trusted workspaces."
+    }
+  },
+  "activationEvents": [
+    "onLanguage:latex",
+    "onCommand:latexdiff.openCompareMenu",
+    "onCommand:latexdiff.compareWithHead",
+    "onCommand:latexdiff.compareWithCommit",
+    "onCommand:latexdiff.compareWithFile"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "latexdiff.openCompareMenu",
+        "title": "Latexdiff: Compare Current File...",
+        "shortTitle": "Latexdiff",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "latexdiff.compareWithHead",
+        "title": "Latexdiff: Compare Current File with HEAD"
+      },
+      {
+        "command": "latexdiff.compareWithCommit",
+        "title": "Latexdiff: Compare Current File with Git Ref..."
+      },
+      {
+        "command": "latexdiff.compareWithFile",
+        "title": "Latexdiff: Compare Current File with Another File..."
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "latexdiff.openCompareMenu",
+          "when": "isWorkspaceTrusted && resourceScheme == file && (editorLangId == latex || resourceExtname == .tex)",
+          "group": "navigation@100"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Latexdiff",
+      "properties": {
+        "latexdiff.executablePath": {
+          "type": "string",
+          "default": "latexdiff",
+          "scope": "machine",
+          "description": "Path to the latexdiff executable, or just 'latexdiff' if it is in your PATH"
+        },
+        "latexdiff.outputDirectory": {
+          "type": "string",
+          "default": ".latexdiff",
+          "scope": "resource",
+          "description": "Relative output directory inside the workspace for generated diff files and PDFs"
+        },
+        "latexdiff.compilerTool": {
+          "type": "string",
+          "default": "latexmk",
+          "enum": ["latexmk", "pdflatex", "tectonic"],
+          "scope": "resource",
+          "description": "Tool used to compile the latexdiff document"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "mocha --ui tdd ./out/test/suite/**/*.test.js",
+    "test:integration": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.39.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.4",
+    "@vscode/test-electron": "^2.3.0"
+  }
+}
