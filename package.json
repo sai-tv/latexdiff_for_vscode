@@ -5,7 +5,7 @@
   "description": "A frictionless VSCode extension for generating and compiling latexdiff documents between different Git versions",
   "version": "0.0.1",
   "preview": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -116,5 +116,13 @@
     "mocha": "^10.2.0",
     "typescript": "^5.0.4",
     "@vscode/test-electron": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sai-tv/latexdiff-vscode.git"
+  },
+  "homepage": "https://github.com/sai-tv/latexdiff-vscode#readme",
+  "bugs": {
+    "url": "https://github.com/sai-tv/latexdiff-vscode/issues"
   }
 }
